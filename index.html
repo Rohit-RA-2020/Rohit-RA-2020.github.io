@@ -46,7 +46,7 @@
   </head>
   <body>
     <h2 style=color:blue>Created by Rohit🤗</h2>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.5.2/dist/tf.min.js"></script>
     <h1>Draw any single digit here...</h1>
     <div id="paint">
@@ -60,20 +60,31 @@
     <script>
     var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     if (isMobile) {
-      $('#paint').css({'width': '100%'});
-      $('#number').css({'width': '30%', 'font-size': '240px'});
-      $('#clear').css({'font-size': '50px'});
+      // $('#paint').css({'width': '100%'});
+      // $('#number').css({'width': '30%', 'font-size': '240px'});
+      // $('#clear').css({'font-size': '50px'});
+      document.querySelector("#paint").style.width = '100%';
+      document.querySelector("#number").style.width = '30%';
+      document.querySelector("#number").style.fontSize = '240px';
+      document.querySelector("#clear").style.fontSize = '50px'
     } else {
-      $('#paint').css({'width': '300px'});
-      $('#number').css({'width': '150px', 'font-size': '120px'});
-      $('#clear').css({'font-size': '35px'});
+      // $('#paint').css({'width': '300px'});
+      // $('#number').css({'width': '150px', 'font-size': '120px'});
+      // $('#clear').css({'font-size': '35px'});
+      document.querySelector("#paint").style.width = '300px';
+      document.querySelector("#number").style.width = '150px';
+      document.querySelector("#number").style.fontSize = '120px';
+      document.querySelector("#clear").style.fontSize = '35px'
     }
 
-    var cw = $('#paint').width();
-    $('#paint').css({'height': cw + 'px'});
+    // var cw = $('#paint').width();
+    // $('#paint').css({'height': cw + 'px'});
 
-    cw = $('#number').width();
-    $('#number').css({'height': cw + 'px'});
+    document.querySelector("#paint").style.height = document.querySelector("#paint").style.width;
+
+    // cw = $('#number').width();
+    // $('#number').css({'height': cw + 'px'});
+    document.querySelector("#number").style.height = document.querySelector("#number").style.width;
 
     var canvas = document.getElementById('myCanvas');
     var context = canvas.getContext('2d');
@@ -147,7 +158,8 @@
         window.model.predict([tf.tensor(input).reshape([1, 28, 28, 1])]).array().then(function(scores){
           scores = scores[0];
           predicted = scores.indexOf(Math.max(...scores));
-          $('#number').html(predicted);
+          // $('#number').html(predicted);
+          document.querySelector("#number").innerHTML=predicted;
         });
       } else {
         // The model takes a bit to load, if we are too fast, wait
@@ -155,10 +167,14 @@
       }
     }
 
-    $('#clear').click(function(){
-      context.clearRect(0, 0, canvas.width, canvas.height);
-      $('#number').html('');
-    });
+    // $('#clear').click(function(){
+    //   context.clearRect(0, 0, canvas.width, canvas.height);
+    //   $('#number').html('');
+    // });
+    document.querySelector("#clear").addEventListener("click",function(){
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            document.querySelector("#number").innerHTML='';
+    })
     </script>
   </body>
 </html>
